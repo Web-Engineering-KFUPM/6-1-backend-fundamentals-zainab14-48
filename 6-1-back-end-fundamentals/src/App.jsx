@@ -32,9 +32,9 @@ LAB SETUP INSTRUCTIONS
    Run:
       npm install
 
-3. Install Express:
+3. Install Express and cors:
    Run:
-      npm install express
+      npm install express cors
 
 4. Start the front-end:
    Run:
@@ -356,19 +356,18 @@ import { useEffect, useState } from 'react';
 import './index.css';
 
 export default function App() {
-  // TODO 9:
-  // Create state to store student data
-  // Syntax hint:
-  // const [student, setStudent] = useState(____);
+  const [student, setStudent] = useState(null);
 
-  // TODO 8:
-  // Request student data from the server when the page loads
-  // Syntax hint:
-  // fetch('http://localhost:3000/student')
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     setStudent(data);
-  //   });
+  useEffect(() => {
+    fetch('http://localhost:3000/student')
+      .then((res) => res.json())
+      .then((data) => {
+        setStudent(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching student data:', error);
+      });
+  }, []);
 
   return (
     <main className="app-shell">
